@@ -1,0 +1,122 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.intelin.core.network'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 24
+        //noinspection OldTargetApi
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+        compose = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.4.5"
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            isDefault true
+            buildConfigField("String", "BASE_URL", '"https://api.locstock.dev.intelin.vn/"')
+            dimension "environment"
+        }
+        stagging {
+            buildConfigField("String", "BASE_URL", '"https://api.locstock.stagging.intelin.vn/"')
+            dimension "environment"
+        }
+        production {
+            buildConfigField("String", "BASE_URL", '"https://api.locstock.intelin.vn/"')
+            dimension "environment"
+        }
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+dependencies {
+
+//    // Firebase
+//    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+//    implementation 'com.google.firebase:firebase-auth:22.1.1'
+//    implementation "com.google.android.gms:play-services-auth:20.6.0"
+//    implementation("com.google.firebase:firebase-auth-ktx")
+//    implementation("com.google.firebase:firebase-messaging-ktx")
+
+    // Gson
+    implementation "com.google.code.gson:gson:2.10"
+
+    // Timer
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    // Hilt
+    def hilt_version = '2.44'
+//    //noinspection GradleDependency
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Kotlin Coroutines
+    def coroutines_android_version = '1.5.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version"
+    //noinspection GradleDependency
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
+    implementation "androidx.hilt:hilt-navigation-compose:1.1.0"
+
+    // Lifecycle
+    def lifecycle_version = "2.4.1"
+    implementation "androidx.core:core-ktx:1.12.0"
+    //noinspection GradleDependency
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    //noinspection GradleDependency
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    //noinspection GradleDependency
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    //noinspection LifecycleAnnotationProcessorWithJava8,GradleDependency
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    //noinspection GradleDependency
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0"
+
+    // Retrofit
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
+
+    //Default
+    //noinspection GradleDependency
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation(project(":core-library"))
+}

@@ -1,0 +1,127 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.locstock.ls.intelin'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.locstock.ls.intelin"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions = ["environment"]
+    productFlavors {
+        dev {
+            isDefault true
+            applicationIdSuffix ".dev"
+            dimension "environment"
+            resValue("string", "app_name", "Locstock - Dev")
+        }
+        stagging {
+            applicationIdSuffix ".stagging"
+            dimension "environment"
+            resValue("string", "app_name", "Locstock - Staging")
+        }
+        production {
+            dimension "environment"
+            resValue("string", "app_name", "Locstock")
+        }
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.4.5"
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    // exoplayer
+    def media3Version = "1.2.0"
+    implementation("androidx.media3:media3-exoplayer:$media3Version")
+    implementation("androidx.media3:media3-exoplayer-hls:$media3Version")
+    implementation("androidx.media3:media3-ui:$media3Version")
+
+//    implementation 'com.aigoox.library:utils:1.0-alpha'
+//    //Firebase
+//    implementation 'com.google.firebase:firebase-auth:22.3.0'
+//    implementation "com.google.android.gms:play-services-auth:20.7.0"
+//    implementation "com.google.firebase:firebase-messaging-ktx:23.4.0"
+    // Gson
+    implementation "com.google.code.gson:gson:2.10"
+    // Hilt
+    def hilt_version = '2.44'
+//    //noinspection GradleDependency
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-navigation-compose:1.1.0"
+
+    // Navigation
+    //noinspection GradleDependency
+    implementation 'androidx.navigation:navigation-compose:2.6.0'
+
+    // Default
+    //noinspection GradleDependency
+    implementation 'androidx.core:core-ktx:1.8.0'
+    //noinspection GradleDependency
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    //noinspection GradleDependency
+    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation platform('androidx.compose:compose-bom:2022.10.00')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    implementation implementation(project(':core-desgin-system',))
+    
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    implementation(project(":core-network"))
+    implementation(project(":core-library"))
+}

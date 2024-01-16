@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_password">Password</string>
+    <string name="loading">Loading…</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="notification">Notification</string>
+    <string name="placeholder_text_field">Enter %s</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_otp">OTP</string>
+    <string name="label_information">Info</string>
+    <string name="field_required">%s is required</string>
+    <string name="label_back_to">Back</string>
+    <string name="label_verify_otp_code">Verification OTP code</string>
+    <string name="content_note_register_otp">We have sent the code verification to\nYour  Mobile Number</string>
+    <string name="label_did_not_receive_otp">Didn\'t receive the OTP code?</string>
+    <string name="label_resend_code">Resend code</string>
+    <string name="des_icon_custom">Icon Custom</string>
+</resources>

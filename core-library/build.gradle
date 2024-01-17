@@ -7,13 +7,12 @@ plugins {
 }
 
 android {
-    namespace 'com.intelin.core.library'
-    compileSdk 33
+    namespace rootProject.namespace_library
+    compileSdk rootProject.compile_sdk_version
 
     defaultConfig {
-        minSdk 24
-        //noinspection OldTargetApi
-        targetSdk 33
+        minSdk rootProject.min_sdk_version
+        targetSdk rootProject.target_sdk_version
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -32,56 +31,49 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility rootProject.java_version
+        targetCompatibility rootProject.java_version
     }
     composeOptions {
-        kotlinCompilerExtensionVersion "1.4.5"
+        kotlinCompilerExtensionVersion rootProject.kotlin_compiler_extension_version
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = rootProject.jvm_target_version
     }
 }
 
 dependencies {
 
     // Gson
-    implementation "com.google.code.gson:gson:2.10"
+    implementation "com.google.code.gson:gson:${rootProject.gson_version}"
 
     // Security
-    //noinspection GradleDependency
-    implementation "androidx.security:security-crypto:1.1.0-alpha03"
+    implementation "androidx.security:security-crypto:${rootProject.security_crypto_version}"
     implementation('com.google.crypto.tink:tink-android') {
         version {
-            strictly '1.6.0'
+            strictly rootProject.security_crypto_strictly_version
         }
     }
 
-    // encrypt bcrypt
-    implementation "org.mindrot:jbcrypt:0.4"
-
     // Hilt
-    def hilt_version = '2.44'
-    //noinspection GradleDependency
+    def hilt_version = rootProject.hilt_version
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-    implementation "androidx.hilt:hilt-navigation-compose:1.1.0"
+    implementation "androidx.hilt:hilt-navigation-compose:${rootProject.hilt_navigation_compose_version}"
 
     //Compose
-    //noinspection GradleDependency
-    implementation 'androidx.activity:activity-compose:1.5.1'
-    implementation platform('androidx.compose:compose-bom:2022.10.00')
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.compose.material3:material3'
+    implementation "androidx.activity:activity-compose:${rootProject.activity_compose_version}"
+    implementation platform("androidx.compose:compose-bom:${rootProject.compose_bom_version}")
+    implementation "androidx.compose.ui:ui"
+    implementation "androidx.compose.ui:ui-graphics"
+    implementation "androidx.compose.ui:ui-tooling-preview"
+    implementation "androidx.compose.material3:material3"
 
-    // Default
-    //noinspection GradleDependency
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // Default=
+    implementation "androidx.core:core-ktx:${rootProject.core_ktx_version}"
+    implementation "androidx.appcompat:appcompat:${rootProject.appcompat_version}"
+    implementation "com.google.android.material:material:${rootProject.material_version}"
+    testImplementation "junit:junit:${rootProject.junit_version}"
+    androidTestImplementation "androidx.test.ext:junit:${rootProject.test_ext_version}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.espresso_core_version}"
 }
